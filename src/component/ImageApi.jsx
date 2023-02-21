@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
 import {
+	Text,
 	View,
 	Image,
 	Button,
 	StyleSheet,
 	ActivityIndicator,
 } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { api } from "../services/api";
 
 export function ImageApi() {
+	const [url, setUrl] = useState("");
+
 	const onPressDownload = () => {
 		console.error(url);
 	};
 
-	const [url, setUrl] = useState("");
+	const newImage = () => {
+		setUrl("");
+		api().then((result) => {
+			if (result) {
+				setUrl(result);
+			}
+		});
+	};
 
 	useEffect(() => {
 		api().then((result) => {
@@ -35,11 +46,19 @@ export function ImageApi() {
 						style={styles.imageApi}
 						source={{ uri: url }}
 					></Image>
-					<Button
-						title="Télécharger"
-						color="#fe9695"
-						onPress={onPressDownload}
-					/>
+					<Text style={styles.btns}>
+						<Button
+							title="Télécharger"
+							color="#fe9695"
+							onPress={onPressDownload}
+						/>
+						<Icon
+							name="refresh"
+							color="#fe9695"
+							size={38}
+							onPress={newImage}
+						/>
+					</Text>
 				</View>
 			)}
 		</View>
@@ -50,16 +69,18 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		margin: 5,
-		borderRadius: 10,
+		paddingTop: 5,
+		borderRadius: 20,
 		borderColor: "#fe9695",
 		borderWidth: 2,
 		justifyContent: "center",
 		alignItems: "center",
-		gap: 10,
-		columnGap: 50,
 	},
 	imageApi: {
-		width: 150,
-		height: 150,
+		width: 160,
+		height: 160,
+	},
+	btns: {
+		paddingTop: 5,
 	},
 });
