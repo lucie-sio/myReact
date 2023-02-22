@@ -1,6 +1,21 @@
-import { View, Text, StyleSheet, Linking } from "react-native";
+import { useState } from "react";
+import { View, Text, Button, StyleSheet, Linking } from "react-native";
+import { api } from "../services/api";
 
 export function About() {
+    const [apiResult, setApiResult] = useState("");
+
+    const newTest = () => {
+        setApiResult("");
+        api().then((result) => {
+            if (result) {
+                setApiResult(result);
+            } else {
+                setApiResult("Impossible de récupérer une image depuis l'API.");
+            }
+        });
+    };
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>About</Text>
@@ -16,6 +31,7 @@ export function About() {
             >
                 roulier.lucie@outlook.fr
             </Text>
+
             <Text style={styles.title}>Api TheCatApi</Text>
             <Text style={styles.text}>
                 Cette API vous renvoi des photos de chats trop mignons !!
@@ -26,6 +42,12 @@ export function About() {
             >
                 https://thecatapi.com/
             </Text>
+            <View style={styles.btnTest}>
+                <Button title="Test" onPress={newTest} color="#fe9695">
+                    Test API
+                </Button>
+            </View>
+            <Text>{apiResult}</Text>
         </View>
     );
 }
@@ -52,5 +74,9 @@ const styles = StyleSheet.create({
         color: "blue",
         fontSize: 15,
         fontFamily: "Baby-Girl",
+    },
+    btnTest: {
+        paddingTop: 30,
+        fontSize: 30,
     },
 });
