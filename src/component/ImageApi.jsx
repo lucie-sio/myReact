@@ -17,6 +17,7 @@ export function ImageApi() {
     const [url, setUrl] = useState("");
 
     const onPressDownload = () => {
+        console.log(url);
         // const uri = url;
         // let fileUri = FileSystem.documentDirectory + "test.jpg";
         // FileSystem.downloadAsync(uri, fileUri)
@@ -27,13 +28,13 @@ export function ImageApi() {
         //         console.error(error);
         //     });
     };
-    // saveFile = async (fileUri) => {
-    //     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    //     if (status === "granted") {
-    //         const asset = await MediaLibrary.createAssetAsync(fileUri);
-    //         await MediaLibrary.createAlbumAsync("Download", asset, false);
-    //     }
-    // };
+    saveFile = async (fileUri) => {
+        // const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        // if (status === "granted") {
+        //     const asset = await MediaLibrary.createAssetAsync(fileUri);
+        //     await MediaLibrary.createAlbumAsync("Download", asset, false);
+        // }
+    };
 
     const newImage = () => {
         setUrl("");
